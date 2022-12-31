@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Producer.Data;
+using Producer.RabbitMQ;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,6 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<OrderDbContext>(options => options.UseInMemoryDatabase("AspNetCoreRabbitMQ"));
 
 builder.Services.AddScoped<IOrderDbContext, OrderDbContext>();
+builder.Services.AddScoped<IMessageProducer, MessagePublisher>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
